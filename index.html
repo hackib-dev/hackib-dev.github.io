@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./assets/css/styles.css">
+
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+    crossorigin="anonymous" />
+    <link rel="stylesheet"
+    href=
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+   <title>Tips Calculator</title>
+
+
+</head>
+
+<body class="body">
+ 
+    <div class="logo"><img src="./assets/images/logo.svg"></div>
+    <main>
+        <div class="left_contents">
+            <div class="input-icons">
+                <div class="input_heading">Bill<span id="bill_error"></span></div>
+                <div class="input_items"><img class="icon" src="./assets/images/icon-dollar.svg" />
+                <input class="input-field" id="input_field" type="number" placeholder="0" >
+                </div>
+            </div>
+
+           
+            <div class="tip_heading">Select Tip %</div>
+
+            <div class="button_items" id="buttons" >
+                <button type="button" class="tips_button" value="5" id="tip5" onclick="fivePercent()" >5%</button>
+                <button type="button" class="tips_button" value="10" id="tip10" onclick="tenPercent()" >10%</button>
+                <button type="button" class="tips_button" value="15" id="tip15" onclick="fifteenPercent()">15%</button>
+                <button type="button" class="tips_button" value="25" id="tip25" onclick="twentyFivePercent()">25%</button>
+                <button type="button" class="tips_button" value="50" id="tip50" onclick="fiftyPercent()">50%</button>
+                <input class="custom" type="number" placeholder="Custom" id="customUserPercent" onkeyup="custom()">
+            </div>
+
+                <div class="input-icons">
+                    <div class="input_heading">Number of People<span id="people_error"></span></div>
+                    <img class="icon" src="./assets/images/icon-person.svg" />
+                    <input class="input-field" type="number" placeholder="0" value= "" id="people"> 
+                </div>
+
+
+        </div>
+
+           
+        <div class="right_contents">
+    
+            <div class="amount">
+                <div class="tip_text">Tip Amount <br><span class='person'>/ person </span></div>
+                <div class="tip_amount"><span class="amnt" id="tip_amnt">$0.00</span> </div>
+            </div>
+
+           
+            <div class="total">
+                <div class="tip_text">Total <br><span class='person'>/ person </span></div>
+                <div class="tip_amount"><span class="amnt" id="total_amnt">$0.00</span></div>
+            </div>
+
+            <input type="submit" value="RESET" class="submit_btn" id="submit_btn" onclick="reset()">
+    
+        </div>
+    </main>
+
+
+
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <script src="/assets/js/bootstrap.js"></script>
+
+
+
+    <!-- <script src="/assets/js/styles.js"> </script> -->
+
+    <script>
+        function tipCalculate(percentage){
+            var billAmount = parseFloat(document.getElementById("input_field").value);
+            var noOfPeople = parseInt(document.getElementById("people").value);
+
+            if(isNaN(billAmount)|| billAmount=='0'){
+                document.getElementById("bill_error").innerHTML="Can't be Zero";
+                document.getElementById("bill_error").style.color="#d65a09";
+                document.getElementById("bill_error").style.fontSize="xx-small";
+                document.getElementById("bill_error").style.float="right";
+                document.getElementById("input_field").style.borderColor="#d65a09";
+                document.getElementById("input_field").focus();
+            }
+            else if(isNaN(noOfPeople) || noOfPeople=='0'){
+                document.getElementById("people_error").innerHTML="Can't be Zero";
+                document.getElementById("people_error").style.fontSize="xx-small";
+                document.getElementById("people_error").style.float="right";
+
+                document.getElementById("people_error").style.color="#d65a09";
+
+
+                document.getElementById("people").style.borderColor="#d65a09";
+                document.getElementById("people").focus();
+            }
+            else{
+                document.getElementById("people_error").innerHTML=""
+                document.getElementById("bill_error").innerHTML=""
+                var amount = billAmount / noOfPeople;
+                var tipsAmount = (percentage /100) * amount;
+                var newAmount = amount + tipsAmount;
+                document.getElementById("tip_amnt").innerHTML = tipsAmount.toFixed(2);
+                document.getElementById("total_amnt").innerHTML= newAmount.toFixed(2);
+            }        
+        
+        }
+
+
+        function fivePercent(){
+            tipCalculate(5)
+         }
+         function tenPercent(){
+            tipCalculate(10)
+         }
+         function fifteenPercent(){
+            tipCalculate(15)
+         }
+         function twentyFivePercent(){
+            tipCalculate(25)
+         }
+         function fiftyPercent(){
+            tipCalculate(50)
+         }
+         function custom(){
+            var customPercent = parseInt(document.getElementById("customUserPercent").value);
+            tipCalculate(customPercent);
+         }
+         
+         function reset(){
+            document.getElementById("input_field").value = "";
+            document.getElementById("people").value= "";
+            document.getElementById("customUserPercent").value="";
+            document.getElementById("tip_amnt").innerHTML ="0.00";
+            document.getElementById("total_amnt").innerHTML ="0.00"
+
+         }
+    </script>
+
+
+
+</body>
+
+</html>
+
